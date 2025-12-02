@@ -4,7 +4,7 @@ import { Note } from '../models/note.js';
 export const getAllNotes = async (req, res, next) => {
   const notes = await Note.find();
 
-  if (!notes) {
+  if (!notes.length) {
     next(createHttpError(404, 'Note not found'));
     return;
   }
