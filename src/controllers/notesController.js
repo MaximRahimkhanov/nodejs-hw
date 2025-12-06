@@ -21,15 +21,6 @@ export const getAllNotes = async (req, res, next) => {
     notesQuery.skip(skip).limit(perPage),
   ]);
 
-  if (!totalNotes) {
-    return res.status(404).json({ message: 'Notes not found' });
-  }
-
-  if (!notes.length) {
-    next(createHttpError(404, 'Note not found'));
-    return;
-  }
-
   res.status(200).json({
     page: page,
     perPage: perPage,
