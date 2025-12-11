@@ -14,10 +14,14 @@ const noteSchema = new Schema(
       default: '',
     },
     tag: {
-      // краще назвати одниною
       type: String,
       enum: TAGS,
       default: 'Todo',
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
     },
   },
   {
