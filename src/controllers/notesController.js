@@ -7,7 +7,7 @@ export const getAllNotes = async (req, res, next) => {
   const skip = (page - 1) * perPage;
 
   const notesQuery = Note.find({ userId: req.user._id });
-
+  // const notesQuery = await Note.findOne({ userId: req.user._id });
   if (tag) {
     notesQuery.where('tag').equals(tag);
   }
@@ -32,7 +32,7 @@ export const getAllNotes = async (req, res, next) => {
 
 export const getNoteById = async (req, res, next) => {
   const { noteId } = req.params;
-  const note = await Note.findById({ noteId, userId: req.user._id });
+  const note = await Note.findById({ _id: noteId, userId: req.user._id });
 
   if (!note) {
     next(createHttpError(404, 'Note not found'));
@@ -66,7 +66,8 @@ export const updateNote = async (req, res, next) => {
   const { noteId } = req.params;
 
   const note = await Note.findByIdAndUpdate(
-    { noteId, userId: req.user._id },
+    { _id: noteId, userId: req.user._id },
+    req.body,
     {
       new: true,
     },
